@@ -1,0 +1,7 @@
+query hasOfficialSolution($titleSlug: String!) {
+  question(titleSlug: $titleSlug) {
+    solution {
+      id
+    }
+  }
+}

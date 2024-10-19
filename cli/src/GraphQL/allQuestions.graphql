@@ -1,0 +1,21 @@
+query allQuestions {
+  allQuestions {
+    title
+    titleSlug
+    questionId
+    questionFrontendId
+    difficulty
+    isPaidOnly
+    topicTags {
+      name
+      slug
+    }
+    content
+    stats
+    codeSnippets {
+      lang
+      langSlug
+      code
+    }
+  }
+}
