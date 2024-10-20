@@ -6,3 +6,4 @@ mod s1405_longest_happy_string;
 mod s0670_maximum_swap;
 mod s2044_count_number_of_maximum_bitwise_or_subsets;
 mod s1545_find_kth_bit_in_nth_binary_string;
+mod s1106_parsing_a_boolean_expression;
