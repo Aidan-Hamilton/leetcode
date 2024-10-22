@@ -315,6 +315,7 @@ fn json_to_code(input: &str) -> String {
 }
 
 fn parse_test_cases(problem: &Problem, code: &str) -> String {
+    // TODO: Fix when there are multiple functions (2583)
     let re = Regex::new(r"\bpub fn\s+(\w+)\s*\(").unwrap();
     let function_name = re.captures(code).unwrap().get(1).unwrap().as_str();
 
