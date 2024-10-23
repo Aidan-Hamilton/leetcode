@@ -28,6 +28,7 @@ Run `cargo test test_{id}` to test the solution for "question #id".
 
 ## Repos
 
-<https://github.com/aylei/leetcode-rust>
-<https://github.com/tan-wei/leetcode-rust>
-<https://github.com/Aloxaf/leetcode_prelude>
+- [Rust-Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
+- [Leetcode-Rust](https://github.com/aylei/leetcode-rust)
+  - [Fork](https://github.com/tan-wei/leetcode-rust)
+- [Test Cases](https://github.com/Aloxaf/leetcode_prelude)

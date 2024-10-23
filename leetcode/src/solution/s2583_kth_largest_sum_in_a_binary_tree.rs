@@ -89,14 +89,12 @@ mod tests {
     use super::*;
     #[test]
     fn test_2583() {
-        let start = std::time::Instant::now();
+        time_test!();
         assert_eq!(
             Solution::kth_largest_level_sum(tree![5, 8, 9, 2, 1, 3, 7, 4, 6], 2),
             13
         );
         let root = tree![1, 2, null, 3];
         assert_eq!(Solution::kth_largest_level_sum(root, 1), 3);
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

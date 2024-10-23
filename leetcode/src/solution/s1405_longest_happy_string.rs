@@ -87,12 +87,9 @@ mod tests {
 
     #[test]
     fn test_1405() {
-        let start = std::time::Instant::now();
-
+        time_test!();
         let result = Solution::longest_diverse_string(1, 1, 7);
         assert!(result == "ccbccacc" || result == "ccaccbcc");
         assert_eq!(Solution::longest_diverse_string(7, 1, 0), "aabaa");
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

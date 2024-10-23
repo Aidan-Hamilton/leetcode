@@ -73,8 +73,7 @@ mod tests {
 
     #[test]
     fn test_1593() {
-        let start = std::time::Instant::now();
-
+        time_test!();
         // default test cases
         assert_eq!(Solution::max_unique_split("ababccc".to_owned()), 5);
         assert_eq!(Solution::max_unique_split("aba".to_owned()), 2);
@@ -85,7 +84,5 @@ mod tests {
         assert_eq!(Solution::max_unique_split("jnafaeffbehaif".to_owned()), 11);
         assert_eq!(Solution::max_unique_split("aaaaaaaaaaaaaaaa".to_owned()), 5);
         assert_eq!(Solution::max_unique_split("wwwzfvedwfvhsww".to_owned()), 11);
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

@@ -62,11 +62,8 @@ mod tests {
 
     #[test]
     fn test_670() {
-        let start = std::time::Instant::now();
-
+        time_test!();
         assert_eq!(Solution::maximum_swap(2736), 7236);
         assert_eq!(Solution::maximum_swap(9973), 9973);
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

@@ -74,12 +74,9 @@ mod tests {
 
     #[test]
     fn test_2044() {
-        let start = std::time::Instant::now();
-
+        time_test!();
         assert_eq!(Solution::count_max_or_subsets(vec![3, 1]), 2);
         assert_eq!(Solution::count_max_or_subsets(vec![2, 2, 2]), 7);
         assert_eq!(Solution::count_max_or_subsets(vec![3, 2, 1, 5]), 6);
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

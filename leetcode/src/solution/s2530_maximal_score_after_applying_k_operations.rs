@@ -66,11 +66,8 @@ mod tests {
 
     #[test]
     fn test_2530() {
-        let start = std::time::Instant::now();
-
+        time_test!();
         assert_eq!(Solution::max_kelements(vec![10, 10, 10, 10, 10], 5), 50);
         assert_eq!(Solution::max_kelements(vec![1, 10, 3, 3, 3], 3), 17);
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

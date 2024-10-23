@@ -76,11 +76,8 @@ mod tests {
 
     #[test]
     fn test_1545() {
-        let start = std::time::Instant::now();
-
+        time_test!();
         assert_eq!(Solution::find_kth_bit(3, 1), '0');
         assert_eq!(Solution::find_kth_bit(4, 11), '1');
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

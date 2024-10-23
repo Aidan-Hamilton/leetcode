@@ -68,6 +68,7 @@ mod tests {
 
     #[test]
     fn test_2938() {
+        time_test!();
         assert_eq!(Solution::minimum_steps("101".to_string()), 1);
         assert_eq!(Solution::minimum_steps("100".to_string()), 2);
         assert_eq!(Solution::minimum_steps("0111".to_string()), 0);

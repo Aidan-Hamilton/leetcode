@@ -20,14 +20,8 @@ mod tests {
 
     #[test]
     fn test___PROBLEM_ID__() {
-        let start = std::time::Instant::now();
+         time_test!();
 
         __TEST_CASES__
-
-        println!(
-            "Time elapsed in {} is: {:?}",
-            file!(),
-            start.elapsed()
-        );
     }
 }

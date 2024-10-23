@@ -1,0 +1,5 @@
+query getUserApiToken {
+  generateLeetcodeUserApiToken {
+    token
+  }
+}

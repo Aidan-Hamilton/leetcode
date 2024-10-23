@@ -1,0 +1,63 @@
+{
+	// Algorithm templates
+	"Depth First Search": {
+		"scope": "rust",
+		"prefix": "dfs",
+		"body": [
+			"fn dfs(graph: &Vec<Vec<i32>>, start: usize, visited: &mut Vec<bool>) {",
+			"    let mut stack = vec![start];",
+			"    while let Some(node) = stack.pop() {",
+			"        if !visited[node] {",
+			"            visited[node] = true;",
+			"            println!(\"Visited {}\", node);",
+			"            for &neighbor in graph[node].iter().rev() {",
+			"                if !visited[neighbor as usize] {",
+			"                    stack.push(neighbor as usize);",
+			"                }",
+			"            }",
+			"        }",
+			"    }",
+			"}"
+		],
+		"description": "Depth-First Search algorithm"
+	}
+	,
+	"Breadth First Search": {
+		"scope": "rust",
+		"prefix": "bfs",
+		"body": [
+			"fn bfs(graph: &Vec<Vec<i32>>, start: usize, visited: &mut Vec<bool>) {",
+			"    let mut queue = std::collections::VecDeque::new();",
+			"    queue.push_back(start);",
+			"    visited[start] = true;",
+			"    while let Some(node) = queue.pop_front() {",
+			"        println!(\"Visited {}\", node);",
+			"        for &neighbor in &graph[node] {",
+			"            if !visited[neighbor as usize] {",
+			"                visited[neighbor as usize] = true;",
+			"                queue.push_back(neighbor as usize);",
+			"            }",
+			"        }",
+			"    }",
+			"}"
+		],
+		"description": "Breadth-First Search algorithm"
+	}
+	
+	// Place your leetcode workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+}

@@ -21,7 +21,13 @@ impl TreeNode {
 
 pub fn to_tree(vec: Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
     use std::collections::VecDeque;
-    let head = Some(Rc::new(RefCell::new(TreeNode::new(vec[0].unwrap()))));
+    if vec.is_empty() {
+        return None;
+    }
+    let head = match vec[0] {
+        Some(val) => Some(Rc::new(RefCell::new(TreeNode::new(val)))),
+        None => return None,
+    };
     let mut queue = VecDeque::new();
     queue.push_back(head.as_ref().unwrap().clone());
 

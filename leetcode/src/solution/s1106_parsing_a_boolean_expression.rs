@@ -106,12 +106,9 @@ mod tests {
 
     #[test]
     fn test_1106() {
-        let start = std::time::Instant::now();
-
+        time_test!();
         assert_eq!(Solution::parse_bool_expr("&(|(f))".to_owned()), false);
         assert_eq!(Solution::parse_bool_expr("|(f,f,f,t)".to_owned()), true);
         assert_eq!(Solution::parse_bool_expr("!(&(f,t))".to_owned()), true);
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

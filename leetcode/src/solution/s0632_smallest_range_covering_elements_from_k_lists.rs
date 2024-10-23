@@ -79,8 +79,7 @@ mod tests {
 
     #[test]
     fn test_632() {
-        let start = std::time::Instant::now();
-
+        time_test!();
         assert_eq!(
             Solution::smallest_range(vec![
                 vec![4, 10, 15, 24, 26],
@@ -93,7 +92,5 @@ mod tests {
             Solution::smallest_range(vec![vec![1, 2, 3], vec![1, 2, 3], vec![1, 2, 3]]),
             vec![1, 1]
         );
-
-        println!("Time elapsed in {} is: {:?}", file!(), start.elapsed());
     }
 }

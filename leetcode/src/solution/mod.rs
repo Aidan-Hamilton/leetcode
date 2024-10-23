@@ -9,3 +9,4 @@ mod s1545_find_kth_bit_in_nth_binary_string;
 mod s1106_parsing_a_boolean_expression;
 mod s1593_split_a_string_into_the_max_number_of_unique_substrings;
 mod s2583_kth_largest_sum_in_a_binary_tree;
+mod s2641_cousins_in_binary_tree_ii;
