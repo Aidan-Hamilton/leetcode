@@ -316,7 +316,7 @@ fn json_to_code(input: &str) -> String {
 
 fn parse_test_cases(problem: &Problem, code: &str) -> String {
     // TODO: Fix when certain solutions do not implement Solution (example 2642 uses Graph)
-    let re = Regex::new(r"\bimpl\s+Solution\s*{\s*pub fn\s+(\w+)\s*\(/gm").unwrap(); // Previous Regex "\bpub fn\s+(\w+)\s*\(""
+    let re = Regex::new(r"\bimpl\s+Solution\s*\{\s*pub fn\s+(\w+)\s*\(").unwrap(); // Previous Regex "\bpub fn\s+(\w+)\s*\("
     let function_name = match re.captures(code) {
         Some(caps) => caps.get(1).unwrap().as_str(),
         None => "func",
