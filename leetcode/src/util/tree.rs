@@ -21,29 +21,34 @@ impl TreeNode {
 
 pub fn to_tree(vec: Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
     use std::collections::VecDeque;
-    if vec.is_empty() {
-        return None;
-    }
-    let head = match vec[0] {
-        Some(val) => Some(Rc::new(RefCell::new(TreeNode::new(val)))),
-        None => return None,
-    };
-    let mut queue = VecDeque::new();
-    queue.push_back(head.as_ref().unwrap().clone());
-
-    for children in vec[1..].chunks(2) {
-        let parent = queue.pop_front().unwrap();
-        if let Some(v) = children[0] {
-            parent.borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(v))));
-            queue.push_back(parent.borrow().left.as_ref().unwrap().clone());
-        }
-        if children.len() > 1 {
-            if let Some(v) = children[1] {
-                parent.borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(v))));
-                queue.push_back(parent.borrow().right.as_ref().unwrap().clone());
+    let nodes = vec
+        .iter()
+        .map(|&num| {
+            if num == None {
+                None
+            } else {
+                Some(Rc::new(RefCell::new(TreeNode::new(num.unwrap()))))
             }
+        })
+        .collect::<Vec<_>>();
+    let head = nodes.get(0)?.clone();
+
+    let mut child_node_ptr = 1;
+    for node in nodes.iter().flatten() {
+        if let Some(child_node) = nodes.get(child_node_ptr) {
+            node.borrow_mut().left = child_node.clone();
+            child_node_ptr += 1;
+        } else {
+            break;
+        }
+        if let Some(child_node) = nodes.get(child_node_ptr) {
+            node.borrow_mut().right = child_node.clone();
+            child_node_ptr += 1;
+        } else {
+            break;
         }
     }
+
     head
 }
 
@@ -52,7 +57,7 @@ macro_rules! tree {
     () => {
         None
     };
-    ($($e:expr),*) => {
+   ($($e:expr), *) => {
         {
             let vec = vec![$(stringify!($e)), *];
             let vec = vec.into_iter().map(|v| v.parse::<i32>().ok()).collect::<Vec<_>>();

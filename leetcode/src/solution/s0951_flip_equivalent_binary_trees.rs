@@ -77,7 +77,7 @@ mod tests {
             ),
             true
         );
-        assert_eq!(Solution::flip_equiv(None, None), true);
-        // assert_eq!(Solution::flip_equiv(None, tree!([1])), false); // FIXME: this test case failes even though it's right
+        assert_eq!(Solution::flip_equiv(tree!([]), tree!([])), true);
+        //assert_eq!(Solution::flip_equiv(tree!([]), tree!([1])), false); // FIXME: this test case failes even though it's right
     }
 }

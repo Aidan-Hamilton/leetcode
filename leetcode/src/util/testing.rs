@@ -40,6 +40,7 @@ impl Drop for TestTimer {
     }
 }
 
+// This isn't the best solution in certain scenarios
 #[macro_export]
 macro_rules! time_test {
     () => {
