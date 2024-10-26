@@ -33,31 +33,13 @@
  *
  */
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
+use crate::util::tree::TreeNode;
 
 // problem: https://leetcode.com/problems/kth-largest-sum-in-a-binary-tree/
 // discuss: https://leetcode.com/problems/kth-largest-sum-in-a-binary-tree/discuss/?currentPage=1&orderBy=most_votes&query=
 
 // submission codes start here
 
-// Definition for a binary tree node.
-// #[derive(Debug, PartialEq, Eq)]
-// pub struct TreeNode {
-//   pub val: i32,
-//   pub left: Option<Rc<RefCell<TreeNode>>>,
-//   pub right: Option<Rc<RefCell<TreeNode>>>,
-// }
-//
-// impl TreeNode {
-//   #[inline]
-//   pub fn new(val: i32) -> Self {
-//     TreeNode {
-//       val,
-//       left: None,
-//       right: None
-//     }
-//   }
-// }
 use std::cell::RefCell;
 use std::rc::Rc;
 impl Solution {
@@ -94,7 +76,6 @@ mod tests {
             Solution::kth_largest_level_sum(tree![5, 8, 9, 2, 1, 3, 7, 4, 6], 2),
             13
         );
-        let root = tree![1, 2, null, 3];
-        assert_eq!(Solution::kth_largest_level_sum(root, 1), 3);
+        assert_eq!(Solution::kth_largest_level_sum(tree![1, 2, null, 3], 1), 3);
     }
 }

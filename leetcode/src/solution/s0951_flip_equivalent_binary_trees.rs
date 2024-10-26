@@ -1,7 +1,7 @@
 /**
  * [951] Flip Equivalent Binary Trees
  *
- * For a binary tree T, we can define a flip operation as follows: choose any node, and swap the left and right child subtrees.
+ * For a binary tree T, we can define a flip operation as follows: choose any node, and swap the left and right child sutrees.
  * A binary tree X is flip equivalent to a binary tree Y if and only if we can make X equal to Y after some number of flip operations.
  * Given the roots of two binary trees root1 and root2, return true if the two trees are flip equivalent or false otherwise.
  *  
@@ -29,7 +29,7 @@
  *
  */
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
+use crate::util::tree::TreeNode;
 
 // problem: https://leetcode.com/problems/flip-equivalent-binary-trees/
 // discuss: https://leetcode.com/problems/flip-equivalent-binary-trees/discuss/?currentPage=1&orderBy=most_votes&query=
@@ -72,12 +72,12 @@ mod tests {
 
         assert_eq!(
             Solution::flip_equiv(
-                tree!([1, 2, 3, 4, 5, 6, null, null, null, 7, 8]),
-                tree!([1, 3, 2, null, 6, 4, 5, null, null, null, null, 8, 7])
+                tree![1, 2, 3, 4, 5, 6, null, null, null, 7, 8],
+                tree![1, 3, 2, null, 6, 4, 5, null, null, null, null, 8, 7]
             ),
             true
         );
-        assert_eq!(Solution::flip_equiv(tree!([]), tree!([])), true);
-        //assert_eq!(Solution::flip_equiv(tree!([]), tree!([1])), false); // FIXME: this test case failes even though it's right
+        assert_eq!(Solution::flip_equiv(tree![], tree![]), true);
+        assert_eq!(Solution::flip_equiv(tree![], tree![1]), false);
     }
 }

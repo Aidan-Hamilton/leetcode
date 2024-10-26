@@ -35,7 +35,7 @@
  *
  */
 pub struct Solution {}
-use crate::util::tree::{to_tree, TreeNode};
+use crate::util::tree::TreeNode;
 
 // problem: https://leetcode.com/problems/cousins-in-binary-tree-ii/
 // discuss: https://leetcode.com/problems/cousins-in-binary-tree-ii/discuss/?currentPage=1&orderBy=most_votes&query=
@@ -117,17 +117,13 @@ mod tests {
     #[test]
     fn test_2641() {
         time_test!();
-        let root = tree!([5, 4, 9, 1, 10, null, 7]);
-        let result = tree!([0, 0, 0, 7, 7, null, 11]);
-        assert_eq!(Solution::replace_value_in_tree(root), result);
         assert_eq!(
-            Solution::replace_value_in_tree(tree!([3, 1, 2])),
-            tree!([0, 0, 0])
+            Solution::replace_value_in_tree(tree![5, 4, 9, 1, 10, null, 7]),
+            tree![0, 0, 0, 7, 7, null, 11]
         );
-
-        /*
-           [5,4,9,1,10,null,7]
-           [3,1,2]
-        */
+        assert_eq!(
+            Solution::replace_value_in_tree(tree![3, 1, 2]),
+            tree![0, 0, 0]
+        );
     }
 }

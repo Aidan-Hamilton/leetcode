@@ -12,3 +12,4 @@ mod s2583_kth_largest_sum_in_a_binary_tree;
 mod s2641_cousins_in_binary_tree_ii;
 mod s0951_flip_equivalent_binary_trees;
 mod s1233_remove_sub_folders_from_the_filesystem;
+mod s2458_height_of_binary_tree_after_subtree_removal_queries;
