@@ -13,3 +13,4 @@ mod s2641_cousins_in_binary_tree_ii;
 mod s0951_flip_equivalent_binary_trees;
 mod s1233_remove_sub_folders_from_the_filesystem;
 mod s2458_height_of_binary_tree_after_subtree_removal_queries;
+mod s1277_count_square_submatrices_with_all_ones;
