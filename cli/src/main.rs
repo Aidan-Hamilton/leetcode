@@ -417,6 +417,7 @@ fn build_desc(content: &str) -> String {
         .replace("&#39;", "'")
         .replace("\n\n", "\n")
         .replace("\n", "\n * ")
+    // TODO: Handle <img alt="" />
 
     // Regex::new("<font color=\"[a-z]*\">")
     //     .unwrap()
