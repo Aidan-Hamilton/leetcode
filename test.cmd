@@ -11,7 +11,7 @@ IF "%~1"=="" (
 GOTO end
 
 :test_all
-@cargo test -- --test-threads 1
+@cargo t
 GOTO end
 
 :end

@@ -4,7 +4,7 @@
 		{
 			"label": "leetcode: test all",
 			"type": "shell",
-			"command": "cargo test -- --test-threads 1 --show-output",
+			"command": "cargo t",
 			"problemMatcher": [
 				"$rustc"
 			],

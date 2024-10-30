@@ -1,2 +1,5 @@
 [build]
 rustflags = ["-A", "unused"]
+
+[alias]
+t = "test -- --test-threads 1 --show-output" # --test-threads 1 --show-output
