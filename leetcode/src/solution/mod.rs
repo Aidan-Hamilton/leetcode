@@ -16,3 +16,4 @@ mod s2458_height_of_binary_tree_after_subtree_removal_queries;
 mod s1277_count_square_submatrices_with_all_ones;
 mod s2501_longest_square_streak_in_an_array;
 mod s2684_maximum_number_of_moves_in_a_grid;
+mod s1671_minimum_number_of_removals_to_make_mountain_array;
