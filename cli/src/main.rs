@@ -38,6 +38,7 @@ fn main() {
     loop {
         println!(
             "Please enter a frontend problem id, \n\
+            or \"daily\" to generate a the daily challenge, \n\
             or \"random\" to generate a random one, \n\
             or \"solve $i\" to move problem to solution/, \n\
             or \"all\" to initialize all problems \n"
@@ -54,6 +55,7 @@ fn main() {
         let random_pattern = Regex::new(r"^random$").unwrap();
         let solving_pattern = Regex::new(r"^solve (\d+)$").unwrap();
         let all_pattern = Regex::new(r"^all$").unwrap();
+        let daily_pattern = Regex::new(r"^daily$").unwrap();
         //let clean_pattern = Regex::new(r"^clean$").unwrap();
 
         if random_pattern.is_match(id_arg) {
@@ -127,6 +129,8 @@ fn main() {
                 .unwrap();
             writeln!(lib_file, "{}", mod_file_addon.lock().unwrap().join("\n"));
             break;
+        } else if daily_pattern.is_match(id_arg) {
+            id = fetcher::get_daily_challenge_id();
         } else {
             id = id_arg
                 .parse::<u32>()

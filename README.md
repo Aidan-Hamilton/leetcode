@@ -1,5 +1,7 @@
 # My Leetcode Solution in Rust
 
+[![Continuous integration](https://github.com/Aidan-Hamilton/leetcode/actions/workflows/ci.yaml/badge.svg?event=push)](https://github.com/Aidan-Hamilton/leetcode/actions/workflows/ci.yaml)
+
 ## Structure
 
 ## Usage
@@ -7,6 +9,7 @@
 When running `cargo run`, it will direct to the CLI tool which currently accepts the following inputs:
 
 - `$i` will initialize the template submission file of "question #id".
+- `daily` will get the daily challenge.
 - `random` will get a random problem.
 - `solve $i` will move the submission file from the `problem` directory to the `solution` directory.
 - `all` will create a file for all problems.

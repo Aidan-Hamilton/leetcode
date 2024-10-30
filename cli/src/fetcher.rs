@@ -8,17 +8,36 @@ use std::fmt::{Display, Error, Formatter};
 
 const PROBLEMS_URL: &str = "https://leetcode.com/api/problems/algorithms/";
 const GRAPHQL_URL: &str = "https://leetcode.com/graphql";
-const QUESTION_QUERY_STRING: &str = r#"
-query questionData($titleSlug: String!) {
-    question(titleSlug: $titleSlug) {
-        content
-        stats
-        codeDefinition
-        sampleTestCase
-        metaData
-    }
-}"#;
+const QUESTION_QUERY_STRING: &str = include_str!("GraphQL/questionData.graphql");
 const QUESTION_QUERY_OPERATION: &str = "questionData";
+const QUESTION_OF_TODAY_STRING: &str = include_str!("GraphQL/questionOfToday.graphql");
+
+pub fn get_daily_challenge_id() -> u32 {
+    let client = reqwest::blocking::Client::new();
+    #[derive(Deserialize)]
+    struct DailyChallengeWrapper {
+        #[serde(rename = "activeDailyCodingChallengeQuestion")]
+        active_daily_coding_challenge_question: DailyChallenge,
+    }
+    #[derive(Deserialize)]
+    struct Wrapper {
+        data: DailyChallengeWrapper,
+    }
+    let daily_challenge: Wrapper = client
+        .post(GRAPHQL_URL)
+        .json(&Query::question_of_today_query())
+        .send()
+        .unwrap()
+        .json()
+        .unwrap();
+    daily_challenge
+        .data
+        .active_daily_coding_challenge_question
+        .question
+        .frontend_question_id
+        .parse()
+        .unwrap()
+}
 
 pub fn get_problem(frontend_question_id: u32) -> Option<Problem> {
     let problems = get_problems().unwrap();
@@ -223,6 +242,13 @@ impl Query {
             query: QUESTION_QUERY_STRING.to_owned(),
         }
     }
+    fn question_of_today_query() -> Query {
+        Query {
+            operation_name: "questionOfToday".to_owned(),
+            variables: json!({}),
+            query: QUESTION_OF_TODAY_STRING.to_owned(),
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -246,7 +272,25 @@ struct Question {
     #[serde(rename = "metaData")]
     meta_data: String,
 }
-
+#[derive(Debug, Serialize, Deserialize)]
+pub struct DailyChallengeQuestion {
+    #[serde(rename = "acRate")]
+    pub ac_rate: f64,
+    pub difficulty: String,
+    #[serde(rename = "frontendQuestionId")]
+    pub frontend_question_id: String,
+    pub title: String,
+    #[serde(rename = "titleSlug")]
+    pub title_slug: String,
+}
+#[derive(Debug, Serialize, Deserialize)]
+pub struct DailyChallenge {
+    pub date: String,
+    #[serde(rename = "userStatus")]
+    pub user_status: String,
+    pub link: String,
+    pub question: DailyChallengeQuestion,
+}
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Problems {
     user_name: String,
