@@ -7,3 +7,5 @@
 - **Auto generation of solution list (when 100 problems solved)**
 - **Use cargo aliases/tools to simplify the cli**
   - Can be done using unittests
+- **Add ability to autofetch graphql request to prevent legal issues** (GraphQL folder contains reverse engineered GraphQL requests which may violate TOS or be copyrighted)
+  - A way around legal issues is by not hosting publically but fetch the GraphQL requests(through build.rs)
