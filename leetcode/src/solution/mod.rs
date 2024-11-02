@@ -20,3 +20,4 @@ mod s1671_minimum_number_of_removals_to_make_mountain_array;
 mod s1697_checking_existence_of_edge_length_limited_paths;
 mod s2463_minimum_total_distance_traveled;
 mod s1957_delete_characters_to_make_fancy_string;
+mod s2490_circular_sentence;
