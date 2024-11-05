@@ -23,3 +23,4 @@ mod s1957_delete_characters_to_make_fancy_string;
 mod s2490_circular_sentence;
 mod s0796_rotate_string;
 mod s3163_string_compression_iii;
+mod s2914_minimum_number_of_changes_to_make_binary_string_beautiful;
