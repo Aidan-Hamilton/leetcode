@@ -25,3 +25,4 @@ mod s0796_rotate_string;
 mod s3163_string_compression_iii;
 mod s2914_minimum_number_of_changes_to_make_binary_string_beautiful;
 mod s3011_find_if_array_can_be_sorted;
+mod s3003_maximize_the_number_of_partitions_after_operations;
