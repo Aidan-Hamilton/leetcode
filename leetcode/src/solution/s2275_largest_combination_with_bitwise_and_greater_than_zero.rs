@@ -43,6 +43,7 @@ pub struct Solution {}
 impl Solution {
     pub fn largest_combination(candidates: Vec<i32>) -> i32 {
         let mut max_count = 0;
+        // Should probably be 32 to check all bits however the contraints are 1 <= candidates[i] <= 10^7(24 bits)
         for i in 0..24 {
             let mut count = 0;
             for &num in &candidates {
@@ -67,9 +68,9 @@ mod tests {
         time_test!();
 
         assert_eq!(
-            Solution::largest_combination([16, 17, 71, 62, 12, 24, 14]),
+            Solution::largest_combination(vec![16, 17, 71, 62, 12, 24, 14]),
             4
         );
-        assert_eq!(Solution::largest_combination([8, 8]), 2);
+        assert_eq!(Solution::largest_combination(vec![8, 8]), 2);
     }
 }
