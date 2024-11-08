@@ -27,3 +27,4 @@ mod s2914_minimum_number_of_changes_to_make_binary_string_beautiful;
 mod s3011_find_if_array_can_be_sorted;
 mod s3003_maximize_the_number_of_partitions_after_operations;
 mod s2275_largest_combination_with_bitwise_and_greater_than_zero;
+mod s1829_maximum_xor_for_each_query;
