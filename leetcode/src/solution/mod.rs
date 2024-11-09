@@ -33,3 +33,4 @@ mod s1388_pizza_with_3n_slices;
 mod s1840_maximum_building_height;
 mod s1879_minimum_xor_sum_of_two_arrays;
 mod s1883_minimum_skips_to_arrive_at_meeting_on_time;
+mod s3133_minimum_array_end;
