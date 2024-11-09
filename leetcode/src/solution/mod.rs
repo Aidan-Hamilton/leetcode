@@ -28,3 +28,8 @@ mod s3011_find_if_array_can_be_sorted;
 mod s3003_maximize_the_number_of_partitions_after_operations;
 mod s2275_largest_combination_with_bitwise_and_greater_than_zero;
 mod s1829_maximum_xor_for_each_query;
+mod s1298_maximum_candies_you_can_get_from_boxes;
+mod s1388_pizza_with_3n_slices;
+mod s1840_maximum_building_height;
+mod s1879_minimum_xor_sum_of_two_arrays;
+mod s1883_minimum_skips_to_arrive_at_meeting_on_time;
