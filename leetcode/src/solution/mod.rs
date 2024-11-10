@@ -34,3 +34,4 @@ mod s1840_maximum_building_height;
 mod s1879_minimum_xor_sum_of_two_arrays;
 mod s1883_minimum_skips_to_arrive_at_meeting_on_time;
 mod s3133_minimum_array_end;
+mod s3097_shortest_subarray_with_or_at_least_k_ii;
