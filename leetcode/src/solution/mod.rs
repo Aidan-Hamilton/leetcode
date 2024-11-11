@@ -36,3 +36,4 @@ mod s1883_minimum_skips_to_arrive_at_meeting_on_time;
 mod s3133_minimum_array_end;
 mod s3097_shortest_subarray_with_or_at_least_k_ii;
 mod s3102_minimize_manhattan_distances;
+mod s2601_prime_subtraction_operation;
