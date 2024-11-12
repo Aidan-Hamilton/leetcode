@@ -37,3 +37,4 @@ mod s3133_minimum_array_end;
 mod s3097_shortest_subarray_with_or_at_least_k_ii;
 mod s3102_minimize_manhattan_distances;
 mod s2601_prime_subtraction_operation;
+mod s2070_most_beautiful_item_for_each_query;
