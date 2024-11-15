@@ -9,7 +9,7 @@ use std::fmt::{Display, Error, Formatter};
 const PROBLEMS_URL: &str = "https://leetcode.com/api/problems/algorithms/";
 const GRAPHQL_URL: &str = "https://leetcode.com/graphql";
 
-pub fn get_test_cases(problem: &Problem) -> Vec<String> {
+pub fn get_console_panel_config(problem: &Problem) -> ConsolePanelConfigQuestionData {
     #[derive(Deserialize)]
     struct Wrapper {
         data: QuestionWrapper,
@@ -17,29 +17,7 @@ pub fn get_test_cases(problem: &Problem) -> Vec<String> {
 
     #[derive(Deserialize)]
     struct QuestionWrapper {
-        question: QuestionDetails,
-    }
-
-    #[derive(Deserialize)]
-    struct QuestionDetails {
-        #[serde(rename = "questionId")]
-        question_id: String,
-        #[serde(rename = "questionFrontendId")]
-        question_frontend_id: String,
-        #[serde(rename = "questionTitle")]
-        question_title: String,
-        #[serde(rename = "enableDebugger")]
-        enable_debugger: bool,
-        #[serde(rename = "enableRunCode")]
-        enable_run_code: bool,
-        #[serde(rename = "enableSubmit")]
-        enable_submit: bool,
-        #[serde(rename = "enableTestMode")]
-        enable_test_mode: bool,
-        #[serde(rename = "exampleTestcaseList")]
-        example_testcase_list: Vec<String>,
-        #[serde(rename = "metaData")]
-        meta_data: String,
+        question: ConsolePanelConfigQuestionData,
     }
 
     let client = reqwest::blocking::Client::new();
@@ -50,7 +28,35 @@ pub fn get_test_cases(problem: &Problem) -> Vec<String> {
         .unwrap()
         .json()
         .unwrap();
-    question.data.question.example_testcase_list.clone()
+    question.data.question
+}
+
+pub fn get_test_cases(problem: &Problem) -> Vec<String> {
+    get_console_panel_config(problem).example_testcase_list
+}
+
+/* Example MetaData
+{
+  "name": "minimizedMaximum",
+  "params": [
+    {
+      "name": "n",
+      "type": "integer"
+    },
+    {
+      "type": "integer[]",
+      "name": "quantities"
+    }
+  ],
+  "return": {
+    "type": "integer"
+  }
+}
+*/
+pub fn get_meta_data(problem: &Problem) -> MetaData {
+    let meta_data: MetaData =
+        serde_json::from_str(&get_console_panel_config(problem).meta_data).unwrap();
+    meta_data
 }
 
 pub fn get_daily_challenge_id() -> u32 {
@@ -303,12 +309,51 @@ impl Query {
 struct RawProblem {
     data: Data,
 }
-
 #[derive(Debug, Serialize, Deserialize)]
 struct Data {
     question: Question,
 }
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ConsolePanelConfigQuestionData {
+    #[serde(rename = "questionId")]
+    question_id: String,
+    #[serde(rename = "questionFrontendId")]
+    question_frontend_id: String,
+    #[serde(rename = "questionTitle")]
+    question_title: String,
+    #[serde(rename = "enableDebugger")]
+    enable_debugger: bool,
+    #[serde(rename = "enableRunCode")]
+    enable_run_code: bool,
+    #[serde(rename = "enableSubmit")]
+    enable_submit: bool,
+    #[serde(rename = "enableTestMode")]
+    enable_test_mode: bool,
+    #[serde(rename = "exampleTestcaseList")]
+    example_testcase_list: Vec<String>,
+    #[serde(rename = "metaData")]
+    meta_data: String,
+}
+#[derive(Debug, Serialize, Deserialize)]
+pub struct MetaData {
+    name: String,
+    params: Vec<MetaDataParam>,
+    #[serde(rename = "return")]
+    return_type: MetaDataReturnType,
+}
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct MetaDataParam {
+    name: String,
+    #[serde(rename = "type")]
+    param_type: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct MetaDataReturnType {
+    #[serde(rename = "type")]
+    return_type: String,
+}
 #[derive(Debug, Serialize, Deserialize)]
 struct Question {
     content: String,

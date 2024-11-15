@@ -215,6 +215,29 @@ fn parse_discuss_link(problem: &Problem) -> String {
     )
 }
 
+#[test]
+fn test_testcases() {
+    let function_name = "minimized_maximum";
+    let cases = vec!["6\n[11,6]", "7\n[15,10,10]", "1\n[100000]"];
+    let formatted_cases = cases
+        .iter()
+        .map(|s| format_test_case(s, function_name))
+        .collect::<Vec<_>>()
+        .join("\n");
+    println!("{}", formatted_cases);
+}
+
+fn format_test_case(s: &str, function_name: &str) -> String {
+    //s.replace("\n", ", "); // format so it's on a single line
+    let lines: Vec<String> = s.split('\n').map(|line| line.trim().to_string()).collect();
+
+    format!(
+        "assert_eq!(Solution::{}({}), result);",
+        function_name,
+        lines.join(", ")
+    ) // format to code
+}
+
 fn parse_test_cases(problem: &Problem, code: &str) -> String {
     // TODO: Fix when certain solutions do not implement Solution (example 2642 uses Graph)
 
@@ -224,14 +247,18 @@ fn parse_test_cases(problem: &Problem, code: &str) -> String {
         Some(caps) => caps.get(1).unwrap().as_str(),
         None => "func",
     };
+    // This code is for handling when other function may be in the solution
+    // if code.contains("pub struct ListNode")
+    //     || code.contains("pub struct TreeNode")
+    //     || code.contains("pub struct Point")
+    // {}
 
     // Fetch Test Cases and format
     let test_cases = fetcher::get_test_cases(problem);
 
     let formatted_test_cases = test_cases
         .iter()
-        .map(|s| s.replace("\n", ", "))
-        .map(|s| format!("assert_eq!(Solution::{}({}), result);", function_name, s))
+        .map(|s| format_test_case(s, function_name))
         .collect::<Vec<_>>()
         .join("\n\t\t"); // the \t for formatting is lazy as template could change
 
