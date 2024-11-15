@@ -231,6 +231,8 @@ fn format_test_case(s: &str, function_name: &str) -> String {
     //s.replace("\n", ", "); // format so it's on a single line
     let lines: Vec<String> = s.split('\n').map(|line| line.trim().to_string()).collect();
 
+    // TODO: Add type support for metadata so parameters like [1, 2, 3] can be parsed to vec![1, 2, 3]
+
     format!(
         "assert_eq!(Solution::{}({}), result);",
         function_name,

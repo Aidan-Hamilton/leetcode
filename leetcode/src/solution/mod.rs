@@ -40,3 +40,4 @@ mod s2601_prime_subtraction_operation;
 mod s2070_most_beautiful_item_for_each_query;
 mod s0875_koko_eating_bananas;
 mod s2064_minimized_maximum_of_products_distributed_to_any_store;
+mod s1574_shortest_subarray_to_be_removed_to_make_array_sorted;
