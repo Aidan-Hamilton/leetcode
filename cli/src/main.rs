@@ -215,131 +215,31 @@ fn parse_discuss_link(problem: &Problem) -> String {
     )
 }
 
-// Split the input into a vector of strings
-fn split_to_vec(input: &str) -> Vec<&str> {
-    let mut start = 0;
-    let mut cnt = 0;
-    let mut ret = vec![];
-    for (idx, c) in input.chars().enumerate() {
-        match c {
-            '[' => {
-                if cnt == 0 {
-                    start = idx;
-                }
-                cnt += 1;
-            }
-            ']' => {
-                cnt -= 1;
-                if cnt == 0 {
-                    ret.push(&input[start..=idx]);
-                    start = idx + 1;
-                }
-            }
-            _ => (),
-        }
-    }
-    ret
-}
-
-// Converts naming into a rust styled naming
-fn turn_to_legal_name(name: &str) -> String {
-    let mut ret = String::new();
-    let mut skiped_first = false;
-    for c in name.chars() {
-        if c.is_ascii_uppercase() && skiped_first {
-            ret.push('_');
-            ret.push(c.to_ascii_lowercase());
-        } else {
-            ret.push(c);
-        }
-        if c == ',' {
-            skiped_first = true;
-        }
-    }
-    ret
-}
-// Convert parameters to rust syntax
-trait ToArgs {
-    fn to_args(&self) -> String;
-}
-
-impl ToArgs for Value {
-    fn to_args(&self) -> String {
-        let array = self.as_array().unwrap();
-        if array.is_empty() {
-            "".to_owned()
-        } else {
-            array
-                .iter()
-                .map(|value| {
-                    if value.is_string() {
-                        format!("{}.to_owned()", value)
-                    } else if value.is_array() {
-                        format!("vec![{}]", value.to_args())
-                    } else {
-                        value.to_string()
-                    }
-                })
-                .collect::<Vec<_>>()
-                .join(", ")
-        }
-    }
-}
-
-fn json_to_code(input: &str) -> String {
-    let v = split_to_vec(&input);
-    let (funcs, args, rets) = (v[0], v[1], v[2]);
-
-    // negatives a dash with a space
-    let funcs = serde_json::from_str::<Value>(&turn_to_legal_name(funcs)).unwrap();
-    let args = serde_json::from_str::<Value>(&args.replace("- ", "-")).unwrap();
-    let rets = serde_json::from_str::<Value>(&rets.replace("- ", "-")).unwrap();
-
-    let mut code = String::new();
-    code.push_str(&format!(
-        "let mut obj = {}::new({});\n",
-        funcs[0].as_str().unwrap(),
-        args[0].to_args(),
-    ));
-
-    for i in 1..funcs.as_array().unwrap().len() {
-        let mut stmt = format!("obj.{}({})", funcs[i].as_str().unwrap(), args[i].to_args());
-        if !rets[i].is_null() {
-            stmt = format!(
-                r##"assert_eq!({}, {}, r#"{}"#)"##,
-                stmt,
-                rets[i].to_string(),
-                stmt
-            );
-        }
-        stmt.push_str(";\n");
-        code.push_str(&stmt);
-    }
-    code
-}
-
 fn parse_test_cases(problem: &Problem, code: &str) -> String {
     // TODO: Fix when certain solutions do not implement Solution (example 2642 uses Graph)
+
+    // Get Function Name
     let re = Regex::new(r"\bimpl\s+Solution\s*\{\s*pub fn\s+(\w+)\s*\(").unwrap(); // Previous Regex "\bpub fn\s+(\w+)\s*\("
     let function_name = match re.captures(code) {
         Some(caps) => caps.get(1).unwrap().as_str(),
         None => "func",
     };
 
-    let test_cases = problem.sample_test_case.as_str();
+    // Fetch Test Cases and format
+    let test_cases = fetcher::get_test_cases(problem);
+
+    let formatted_test_cases = test_cases
+        .iter()
+        .map(|s| s.replace("\n", ", "))
+        .map(|s| format!("assert_eq!(Solution::{}({}), result);", function_name, s))
+        .collect::<Vec<_>>()
+        .join("\n\t\t"); // the \t for formatting is lazy as template could change
+
+    formatted_test_cases
     /*
-    Result comes from "expected_code_answer" in /check/
-    https://leetcode.com/submissions/detail/runcode_#######/check/
+        Result comes from "expected_code_answer" in /check/
+        https://leetcode.com/submissions/detail/runcode_#######/check/
     */
-    format!(
-        "
-        // assert_eq!(Solution::{}(param), result);
-        /*
-            {}
-        */
-        ",
-        function_name, test_cases
-    )
     //json_to_code(&problem.sample_test_case)
 }
 

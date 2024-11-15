@@ -8,9 +8,50 @@ use std::fmt::{Display, Error, Formatter};
 
 const PROBLEMS_URL: &str = "https://leetcode.com/api/problems/algorithms/";
 const GRAPHQL_URL: &str = "https://leetcode.com/graphql";
-const QUESTION_QUERY_STRING: &str = include_str!("GraphQL/questionData.graphql");
-const QUESTION_QUERY_OPERATION: &str = "questionData";
-const QUESTION_OF_TODAY_STRING: &str = include_str!("GraphQL/questionOfToday.graphql");
+
+pub fn get_test_cases(problem: &Problem) -> Vec<String> {
+    #[derive(Deserialize)]
+    struct Wrapper {
+        data: QuestionWrapper,
+    }
+
+    #[derive(Deserialize)]
+    struct QuestionWrapper {
+        question: QuestionDetails,
+    }
+
+    #[derive(Deserialize)]
+    struct QuestionDetails {
+        #[serde(rename = "questionId")]
+        question_id: String,
+        #[serde(rename = "questionFrontendId")]
+        question_frontend_id: String,
+        #[serde(rename = "questionTitle")]
+        question_title: String,
+        #[serde(rename = "enableDebugger")]
+        enable_debugger: bool,
+        #[serde(rename = "enableRunCode")]
+        enable_run_code: bool,
+        #[serde(rename = "enableSubmit")]
+        enable_submit: bool,
+        #[serde(rename = "enableTestMode")]
+        enable_test_mode: bool,
+        #[serde(rename = "exampleTestcaseList")]
+        example_testcase_list: Vec<String>,
+        #[serde(rename = "metaData")]
+        meta_data: String,
+    }
+
+    let client = reqwest::blocking::Client::new();
+    let question: Wrapper = client
+        .post(GRAPHQL_URL)
+        .json(&Query::console_panel_config(&problem.title_slug))
+        .send()
+        .unwrap()
+        .json()
+        .unwrap();
+    question.data.question.example_testcase_list.clone()
+}
 
 pub fn get_daily_challenge_id() -> u32 {
     let client = reqwest::blocking::Client::new();
@@ -237,16 +278,23 @@ struct Query {
 impl Query {
     fn question_query(title_slug: &str) -> Query {
         Query {
-            operation_name: QUESTION_QUERY_OPERATION.to_owned(),
+            operation_name: "questionData".to_owned(),
             variables: json!({ "titleSlug": title_slug }),
-            query: QUESTION_QUERY_STRING.to_owned(),
+            query: include_str!("GraphQL/questionData.graphql").to_owned(),
         }
     }
     fn question_of_today_query() -> Query {
         Query {
             operation_name: "questionOfToday".to_owned(),
             variables: json!({}),
-            query: QUESTION_OF_TODAY_STRING.to_owned(),
+            query: include_str!("GraphQL/questionOfToday.graphql").to_owned(),
+        }
+    }
+    fn console_panel_config(title_slug: &str) -> Query {
+        Query {
+            operation_name: "consolePanelConfig".to_owned(),
+            variables: json!({ "titleSlug": title_slug }),
+            query: include_str!("GraphQL/consolePanelConfig.graphql").to_owned(),
         }
     }
 }

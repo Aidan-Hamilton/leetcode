@@ -20,7 +20,7 @@ mod tests {
 
     #[test]
     fn test___PROBLEM_ID__() {
-         time_test!();
+        time_test!();
 
         __TEST_CASES__
     }

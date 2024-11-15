@@ -38,3 +38,5 @@ mod s3097_shortest_subarray_with_or_at_least_k_ii;
 mod s3102_minimize_manhattan_distances;
 mod s2601_prime_subtraction_operation;
 mod s2070_most_beautiful_item_for_each_query;
+mod s0875_koko_eating_bananas;
+mod s2064_minimized_maximum_of_products_distributed_to_any_store;
